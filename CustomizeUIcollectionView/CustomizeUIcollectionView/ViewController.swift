@@ -9,6 +9,8 @@
 import UIKit
 import CoreMotion
 import MapKit
+import MessageUI
+var count = 0
 
 class ViewController: UIViewController {
     
@@ -16,29 +18,38 @@ class ViewController: UIViewController {
     var cellContent = ["顯示一個Alert View","顯示藍色，點擊後變成紅色，再次點擊又會是藍色","透過過core motion顯示使用者現在的步數，並且即時更新","開啟此App在IOS的設定頁面","打開google map或是web導航至Alpha camp","開啟信箱，並將標題填上測試信件"]
     
     var motionManager = CMMotionManager()
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        motionManager.deviceMotionUpdateInterval = 0.1
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        print(UIScreen.main.bounds.width)
+        print(UIScreen.main.bounds.height)
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        motionManager.deviceMotionUpdateInterval = 0.5
         motionManager.startDeviceMotionUpdates(to: OperationQueue.current!) { (deviceManager, error) in
-            let accelerationThrehold:Double = 1
+            let accelerationThrehold:Double = 0.5
             let userAcceleration:CMAcceleration = deviceManager!.userAcceleration
-            
-            if let myData = deviceManager {
-                print(myData)
-            }
+
             
             if (fabs(userAcceleration.x) > accelerationThrehold) || (fabs(userAcceleration.y) > accelerationThrehold) || (fabs(userAcceleration.z) > accelerationThrehold) {
                 
-                print("")
+                print("123")
+                count += 1
+                //隨時更新步數
+                self.collectionView.reloadData()
+
             }
         }
-        
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
+
     }
-    
     //導航function，帶入經緯度，目的地名稱的參數
     func navigation(lat:Float, lon:Float, placeName:String){
         let latitude: CLLocationDegrees = CLLocationDegrees(lat)
@@ -55,6 +66,7 @@ class ViewController: UIViewController {
         mapItem.openInMaps(launchOptions: option)
     }
 
+    
 
 }
 extension ViewController: UICollectionViewDelegate {
@@ -81,10 +93,6 @@ extension ViewController: UICollectionViewDelegate {
                 cell.backgroundColor = UIColor.blue
                 print("456")
             }
-        //加入core motion功能
-        }else if indexPath.row == 2 {
-            
-        
         //加入切換至設定功能
         } else if indexPath.row == 3 {
             let alertController = UIAlertController (title: "Title", message: "Go to Settings?", preferredStyle: .alert)
@@ -109,6 +117,21 @@ extension ViewController: UICollectionViewDelegate {
         //加入apple內建地圖的導航
         } else if indexPath.row == 4 {
             navigation(lat: 25.052288 , lon: 121.532258, placeName: "ALPHA Camp")
+        
+        //加入mail功能
+        } else if indexPath.row == 5 {
+            let sendingEmailController = MFMailComposeViewController()
+            
+            if MFMailComposeViewController.canSendMail() {
+                sendingEmailController.mailComposeDelegate = self
+                //收件人
+                sendingEmailController.setToRecipients(["topkofaxion7671@yahoo.com.tw", "topkofaxion7671@hotmail.com"])
+                //標題
+                sendingEmailController.setSubject("測試信件")
+                //信件內容
+                sendingEmailController.setMessageBody("信件內容", isHTML: false)
+                present(sendingEmailController, animated: true, completion: nil)
+            }
         }
     }
     
@@ -123,8 +146,19 @@ extension ViewController: UICollectionViewDataSource {
         //cell顯示藍色
         if indexPath.row == 1 {
             cell.backgroundColor = UIColor.blue
-            return cell
+        //其餘cell維持白色
+        } else {
+            cell.backgroundColor = UIColor.white
         }
+        //加入core motion功能
+        if indexPath.row == 2 {
+            cell.countLabel.isHidden = false
+            cell.countLabel.text = "\(count)"
+        //其餘cell隱藏計數label
+        } else {
+            cell.countLabel.isHidden = true
+        }
+       
         return cell
     }
     
@@ -134,6 +168,14 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     //調整 cell 的大小，服從 UICollectionViewDelegateFlowLayout 協定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //cell 的長寬隨畫面大小不同而改變
-        return CGSize(width: (view.frame.width - 80) / 2, height: (view.frame.width - 80) / 2)
+        
+        return CGSize(width: (UIScreen.main.bounds.width - 80) / 2, height: (UIScreen.main.bounds.width - 80) / 2)
     }
 }
+extension ViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+
