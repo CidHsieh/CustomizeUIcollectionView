@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		842908011ECB026300D35EF2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 842908001ECB026300D35EF2 /* Settings.bundle */; };
 		8469D3131EC5B0F60035E99B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469D3121EC5B0F60035E99B /* AppDelegate.swift */; };
 		8469D3151EC5B0F60035E99B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469D3141EC5B0F60035E99B /* ViewController.swift */; };
 		8469D3181EC5B0F60035E99B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8469D3161EC5B0F60035E99B /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		842908001ECB026300D35EF2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8469D30F1EC5B0F60035E99B /* CustomizeUIcollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomizeUIcollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8469D3121EC5B0F60035E99B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8469D3141EC5B0F60035E99B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		8469D3111EC5B0F60035E99B /* CustomizeUIcollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				842908001ECB026300D35EF2 /* Settings.bundle */,
 				8469D3121EC5B0F60035E99B /* AppDelegate.swift */,
 				8469D3141EC5B0F60035E99B /* ViewController.swift */,
 				8469D3241EC5B4400035E99B /* CollectionViewCell.swift */,
@@ -127,6 +130,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842908011ECB026300D35EF2 /* Settings.bundle in Resources */,
 				8469D31D1EC5B0F60035E99B /* LaunchScreen.storyboard in Resources */,
 				8469D31A1EC5B0F60035E99B /* Assets.xcassets in Resources */,
 				8469D3181EC5B0F60035E99B /* Main.storyboard in Resources */,
@@ -308,6 +312,7 @@
 				8469D3231EC5B0F60035E99B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

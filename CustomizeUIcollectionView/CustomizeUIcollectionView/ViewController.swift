@@ -93,11 +93,11 @@ extension ViewController: UICollectionViewDelegate {
                 cell.backgroundColor = UIColor.blue
                 print("456")
             }
-        //加入切換至設定功能
+        //點選切換至本app的設定頁面
         } else if indexPath.row == 3 {
-            let alertController = UIAlertController (title: "Title", message: "Go to Settings?", preferredStyle: .alert)
+            let alertController = UIAlertController (title: "", message: "前往設定頁面", preferredStyle: .alert)
             
-            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            let settingsAction = UIAlertAction(title: "確定", style: .default) { (_) -> Void in
                 guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
                     return
                 }
@@ -109,10 +109,11 @@ extension ViewController: UICollectionViewDelegate {
                 }
             }
             alertController.addAction(settingsAction)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
             alertController.addAction(cancelAction)
             
             present(alertController, animated: true, completion: nil)
+
             
         //加入apple內建地圖的導航
         } else if indexPath.row == 4 {
@@ -134,9 +135,6 @@ extension ViewController: UICollectionViewDelegate {
             }
         }
     }
-    
-    
-
 }
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
